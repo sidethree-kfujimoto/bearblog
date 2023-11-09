@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{% block lang %}en{% endblock %}">
+
+<head>
+  {% block referrer %}
+  {% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  
+  <title>{% block title %}Bear Blog{% endblock %}</title>
+  {% block canonical %}{% endblock %}
+  {% block seo %}{% endblock %}
+  {% block imports %}{% endblock %}
+  
+  <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E{% block favicon %}🐼{% endblock %}%3C/text%3E%3C/svg%3E">
+
+  <style>
+      {% autoescape off %}
+      {% block custom_styles %}
+        {% include 'styles/blog/default.css' %}
+        {% include 'styles/dashboard.css' %}
+      {% endblock %}
+      {% endautoescape %}
+  </style>
+</head>
+
+<body class="{% block page_type %}{% endblock %}">
+  <header>
+    <a class="title" href="/">
+      <h1>
+        {% if request.META.HTTP_HOST == "hmartinus.com" %}
+        [Testing on {{ request.META.HTTP_HOST }}]
+        {% endif %}
+        {% block heading %}
+        <span class="title-bear">ʕ•ᴥ•ʔ</span> Bear
+        {% endblock %}
+      </h1>
+    </a>
+    <nav>
+      {% block nav %}
+      {% endblock %}
+    </nav>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer style="padding:25px 0;">
+    {% block footer %}
+    {% include 'snippets/dashboard_footer.html' %}
+    {% endblock %}
+  </footer>
+</body>
+</html>

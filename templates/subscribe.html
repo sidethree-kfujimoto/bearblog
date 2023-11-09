@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block page_type %}subscribe{% endblock %}
+
+{% block favicon %}{{ blog.favicon }}{% endblock %}
+
+{% block title %}Subscribe | {{ blog.title }}{% endblock %}
+
+{% block canonical %}<link rel="canonical" href="{{ root }}/blog/">{% endblock %}
+
+{% block imports %}
+{% if blog.fathom_site_id %}<script src="https://cdn.usefathom.com/script.js" data-site="{{ blog.fathom_site_id }}" defer></script>{% endif %}
+{% endblock %}
+
+{% block custom_styles %}{% include 'snippets/styles.html' with blog=blog %}{% endblock %}
+
+{% block heading %}{{ blog.title }}{% endblock %}
+
+{% block nav %}{{ blog.nav | markdown:blog | safe }}{% endblock %}
+
+{% block content %}
+{% if blog.upgraded and not subscribe_message %}
+<p>
+    <b>Subscribe to this blog</b>
+</p>
+{% include './snippets/email_subscribe_form.html' %}
+{% endif %}
+
+{% if subscribe_message %}
+<p><i>{{ subscribe_message }}</i></p>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+Made with <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a>
+{% endblock %}
